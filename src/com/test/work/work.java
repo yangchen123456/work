@@ -1,29 +1,21 @@
 package com.test.work;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class work {
     public static void main(String[] args) {
         //定义中文字符
         String name = "杨公辰";
 
-        String uname = "";
-        uname += "[";
-        // 将name转化为数组
-        char[] chars = name.toCharArray();
+        String[] split = name.split("");
+        System.out.println(Arrays.toString(split));
 
-        for (int i = 0; i < chars.length; i++) {
-            if (i == chars.length - 1) {
-                uname += chars[i];
-            }else {
-                uname += chars[i];
-                uname += ",";
-            }
-        }
-        uname += "]";
-        
-        char[] chars1 = uname.toCharArray();
-        System.out.println(chars1);
+        System.out.println(split.length);
+        System.out.println(split[0]);
+
     }
     }
 
