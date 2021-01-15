@@ -23,7 +23,7 @@ public class ListDemo {
      */
     public static void main(String[] args) {
         // 创建集合对象
-        List list = new ArrayList();
+        List<String> list = new ArrayList();
 
         // 创建字符串并添加字符串
         list.add("hello");

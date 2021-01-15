@@ -1,5 +1,4 @@
-package ArrayList;
-
+package com.bh.ArrayList;
 
 import org.junit.Test;
 
