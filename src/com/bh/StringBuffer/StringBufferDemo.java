@@ -191,11 +191,11 @@ public class StringBufferDemo {
 
         // 定义功能
         // 方式1：用String做拼接的方式
-        String s1 = arrayToString(arr);
+        String s1 = arrayToString2(arr);
         System.out.println("s1:" + s1);
 
         // 方式2:用StringBuffer做拼接的方式
-        String s2 = arrayToString2(arr);
+        String s2 = arrayToString(arr);
         System.out.println("s2:" + s2);
     }
 

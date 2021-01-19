@@ -87,6 +87,7 @@ public class MathDemo {
         System.out.println("请输入结束数：");
         int end = sc.nextInt();
 
+
         for (int i = 0; i < 20; i++) {
             //调用获取随机数的方法，传递参数
             int num = getRandom(start, end);
@@ -95,9 +96,9 @@ public class MathDemo {
     }
 
     //获取随机数的方法
-    @Test
     public static int getRandom(int start, int end) {
         int number = (int) (Math.random() * (end - start + 1)) + start;
         return number;
     }
+
 }
