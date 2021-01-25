@@ -27,12 +27,13 @@ public class DbUtils {
 
         try {
             //获取connection对象
-            connection = TestC3P0.getconnection1();
+            connection = TestC3P0.getConnection();
         } catch (PropertyVetoException e) {
             System.out.println("获取连接失败");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         //编写sql语句
         String sql = "update branch set branch_name = ? where id = ?";
         try {
@@ -114,7 +115,7 @@ public class DbUtils {
         //编写sql语句
         String sql = "select * from branch where id=?";
         //执行sql语句
-        Map<String,Object> map = null;
+        Map<String, Object> map = null;
         try {
             map = qr.query(sql, new MapHandler(), "1");
         } catch (SQLException throwables) {
@@ -126,7 +127,7 @@ public class DbUtils {
 
     /**
      * 测试查询多个用实体类接受
-     *多行处理器！把结果集转换成 List<Bean>；
+     * 多行处理器！把结果集转换成 List<Bean>；
      */
     @Test
     public void testQuery4() {
@@ -180,8 +181,7 @@ public class DbUtils {
 
 
     /**
-     *
-     *查询数据库一共几条数据
+     * 查询数据库一共几条数据
      * 单行单列处理器！把结果集转换成 Object。一般用于聚集查询，例如 select
      * count(*) from tab_student。
      */
@@ -196,12 +196,38 @@ public class DbUtils {
         //执行sql
         Number number = null;
         try {
-            number = (Number)qr.query(sql, new ScalarHandler());
+            number = (Number) qr.query(sql, new ScalarHandler());
         } catch (SQLException throwables) {
             System.out.println("执行sql失败");
         }
         //获取结果
         int cnt = number.intValue();
         System.out.println(cnt);
+    }
+
+
+    /**
+     * QueryRunner 还提供了批处理方法：batch()。
+     * 更新一行记录时需要指定一个 Object[]为参数，如果是批处理，那么就要指定 Object[][]为参数。
+     * 即多个 Object[]就是 Object[][]了，其中每个 Object[]对应一行记录：
+     */
+    @Test
+    public void testBatch() {
+        //获取数据源
+        DataSource ds = JdbcUtil.getDataSource();
+        //获取对象
+        QueryRunner qr = new QueryRunner(ds);
+        //创建
+        String sql = "insert into branch values(?,?,?)";
+        Object[][] params = new Object[10][];//表示 要插入10行记录
+        for (int i = 0; i < params.length; i++) {
+            params[i] = new Object[]{ i, "name" + i, i % 2 == 0 ? "男 " : "女"};
+        }
+        try {
+            //执行批处理
+            qr.batch(sql, params);
+        } catch (SQLException throwables) {
+            System.out.println("执行批处理失败");
+        }
     }
 }

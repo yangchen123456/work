@@ -36,16 +36,20 @@ public class DBCP {
         PassWord = p.getProperty("password");
     }
     public static Connection  getConnection(){
+        //创建对象
         BasicDataSource ds = new BasicDataSource();
+        //设置四大参数
         ds.setUsername(p.getProperty("username"));
         ds.setPassword(p.getProperty("password"));
         ds.setUrl(p.getProperty("url"));
         ds.setDriverClassName(p.getProperty("driver"));
+        //设置初始化
         ds.setMaxIdle(10);
         ds.setInitialSize(10);
         ds.setMinIdle(2);
         Connection con = null;
         try {
+            //获取connection对象
             con = ds.getConnection();
             System.out.println(con);
             con.close();

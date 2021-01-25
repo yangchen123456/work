@@ -6,11 +6,15 @@ import org.junit.Test;
 import java.sql.*;
 
 public class Transaction {
-    public static void main(String[] args) {
+    /**
+     * 测试事务
+     *
+     */
+   @Test
+   public void test(){
         //调用test方法传入true则抛出异常，执行事务回滚
         //传入false,则不抛出异常不执行事务回滚
         test(true);
-
     }
 
     /**

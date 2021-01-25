@@ -1,13 +1,10 @@
 package com.bh.jdbc.test;
 
-import com.bh.jdbc.util.JdbcUtil;
 import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.beans.PropertyVetoException;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -33,7 +30,7 @@ public class TestJDBC {
     //定义静态代码块，当类加载的时候就会调用数据库连接池返回连接对象
     static {
         try {
-            connection = TestC3P0.getconnection();
+            connection = TestC3P0.getConnection();
         } catch (PropertyVetoException e) {
             e.printStackTrace();
         } catch (SQLException throwables) {
@@ -161,6 +158,7 @@ public class TestJDBC {
             pstmt.setBinaryStream(1, fis);
             //执行sql
             pstmt.executeUpdate();
+            //关闭资源
             TestC3P0.close(connection, pstmt);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -256,10 +254,9 @@ public class TestJDBC {
             rs.next();
             InputStream is = rs.getBinaryStream("data");
             IOUtils.copy(is, fos);
-            if (psmt != null) {
-                //关闭
-                TestC3P0.close(connection, psmt);
-            }
+
+            //关闭
+            TestC3P0.close(connection, psmt);
             //关闭流
             fos.close();
         } catch (SQLException throwables) {
